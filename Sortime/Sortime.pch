@@ -1,0 +1,38 @@
+//
+//  Sortime.pch
+//  Sortime
+//
+//  Created by Calcifer on 15/11/25.
+//  Copyright © 2015年 com.Carcifer. All rights reserved.
+//
+
+#ifndef Sortime_pch
+#define Sortime_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "UIView+Extension.h"
+#import "Masonry.h"
+#import "BlocksKit.h"
+#import "BlocksKit+UIKit.h"
+#import "NSDate+CalciferExtension.h"
+#import "GPUImage.h"
+
+#import "UIImage+Extension.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "DDLog.h"
+#if DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+#endif
+
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+
+#define WeakSelf(weakself) __typeof (&*self) weakself = self;
+
+
+
+#endif /* Sortime_pch */

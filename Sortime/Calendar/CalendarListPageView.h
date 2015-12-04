@@ -8,15 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-
+@class CalendarListPageViewController;
 @class CalendarListPageTableView;
 @interface CalendarListPageView : UIView
 
 @property (nonatomic, weak) UIView *backgroundWeatherView;
 
 @property (nonatomic, weak) CalendarListPageTableView *planTableView;
-
-@property (nonatomic, weak) UIPanGestureRecognizer *panGesture;
 
 
 @end

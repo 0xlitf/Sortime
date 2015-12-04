@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class CalendarViewController;
 @interface MainTabBarController : UITabBarController
 
+@property (nonatomic, strong) CalendarViewController *calendarViewController;
 @end

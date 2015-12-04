@@ -17,3 +17,7 @@ pod 'SDCycleScrollView', '~> 1.3'
 pod 'CocoaLumberjack'
 pod 'MYBlurIntroductionView'
 pod 'ChameleonFramework'
+pod 'FMDB'
+
+
+

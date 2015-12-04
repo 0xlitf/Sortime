@@ -12,9 +12,10 @@
 #import "SettingNavigationController.h"
 #import "SettingViewController.h"
 #import "CalendarSwitchViewController.h"
+#import "CalendarListPageTableView.h"
 #import "CalendarTitleView.h"
 
-@interface CalendarViewController ()
+@interface CalendarViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) CalendarView *calendarView;
 @property (nonatomic, assign)  NSInteger deltaDayValue;
 @property (nonatomic, strong) CalendarTitleView *titleView;
@@ -36,16 +37,27 @@
 	return _calendarView;
 }
 
+
+- (void)changeNavigationBarAlpha:(NSNotification*)notification{
+	NSString *nameStr = [notification name];
+	NSString *objectStr = [notification object];
+	NSLog(@"nameStr:%@",nameStr);
+	NSLog(@"objectStr:%@",objectStr);
+	
+	self.navigationController.navigationBar.alpha = [objectStr floatValue];
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeNavigationBarAlpha:) name:@"changeNavigationBarAlpha" object:nil];
 	
 	
 	[self.view addSubview:self.calendarView];
 	[self.calendarView mas_makeConstraints:^(MASConstraintMaker *make) {
-		make.edges.equalTo(self.view);
+		make.left.top.right.equalTo(self.view);
+		make.bottom.equalTo(@(-49));
 	}];
 	[self createNavigationBarButton];
 	WeakSelf(weakself);
@@ -58,9 +70,13 @@
 			
 		}];
 		weakself.calendarView.listView.deltaDayValue = 0;
-		[self updateTitleView:0];
+		[weakself updateTitleView:0];
 	};
+
+	
+	
 }
+
 
 
 - (void)updateTitleView:(NSInteger) currentPage {
@@ -112,12 +128,15 @@
 	[super viewWillAppear:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 	
+//	self.navigationController.navigationBar.alpha = 0;
+//	[self.navigationController setNavigationBarHidden:YES];
 	
 	
 	self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
 	self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
 	
 }
+
 
 - (void)createNavigationBarButton {
 	
@@ -150,6 +169,7 @@
 	self.titleView = titleView;
 	
 }
+
 
 
 @end

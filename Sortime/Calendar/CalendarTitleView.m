@@ -57,6 +57,12 @@
 	}];
 	self.arrowButton = arrowButton;
 	self.arrowButton.hidden = YES;
+	[arrowButton bk_whenTapped:^{
+		NSLog(@"tap");
+		if (self.titleTaped) {
+			self.titleTaped();
+		}
+	}];
 }
 
 - (void)showLeftArrow {

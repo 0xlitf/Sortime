@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '5551126C8F7B0DFE8182F352'
+               BlueprintIdentifier = '6664F48B91390DBD5BFDBD69'
                BlueprintName = 'CWStatusBarNotification'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libCWStatusBarNotification.a'>

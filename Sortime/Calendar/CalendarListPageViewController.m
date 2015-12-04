@@ -22,27 +22,24 @@
 @implementation CalendarListPageViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	[self createSubviews];
-
+		self.listPageView.planTableView.delegate = self;
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated {
 	if ([self tableView:self.listPageView.planTableView numberOfRowsInSection:0] != 0) {
 		[self.listPageView.planTableView.noticeView hideNotice];
 	}
-	if (self.changePageBlock) {
-		NSLog(@"completed");
-		self.changePageBlock((int)self.deltaDayValue);
-	}
 }
 
-- (void)createSubviews{
+- (void)createSubviews {
 	CalendarListPageView *listPageView = [[CalendarListPageView alloc] init];
 	[self.view addSubview:listPageView];
-	listPageView.panGesture.delegate = self;
+	
 	listPageView.planTableView.delegate = self;
 	listPageView.planTableView.dataSource = self;
+	
 	[listPageView mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.edges.equalTo(self.view);
 	}];
@@ -52,26 +49,26 @@
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.deltaDayValue == -1) {
 		return 0;
 	}
 	
-	return 1;
+	return 10;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	
 	return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *ID = @"cell";
 	CalendarListPageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
 	if (!cell) {
@@ -79,13 +76,10 @@
 	}
 	
 	
-
+	
 	
 	return cell;
 }
-
-
-
 
 #pragma mark resolve UITableView and UIPageViewController panGesture Conflict
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(nonnull UIGestureRecognizer *)otherGestureRecognizer {
@@ -95,6 +89,65 @@
 	}
 	return YES;
 }
+
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;        {
+	NSLog(@"%f",self.listPageView.planTableView.contentOffset.y);
+	if (self.listPageView.planTableView.contentOffset.y < 0) {
+		float a = 1 + (self.listPageView.planTableView.contentOffset.y)/100;
+		self.listPageView.planTableView.alpha = a;
+		self.view.window.rootViewController.navigationController.navigationBar.alpha = a;
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"changeNavigationBarAlpha" object:[NSString stringWithFormat:@"%f",a]];
+
+	}
+	
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView NS_AVAILABLE_IOS(3_2){
+	
+}// any zoom scale changes
+
+// called on start of dragging (may require some time and or distance to move)
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	
+	
+}
+// called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset NS_AVAILABLE_IOS(5_0){
+	
+}
+// called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+	
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+	
+}// called on finger up as we are moving
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+	
+}// called when scroll view grinds to a halt
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+	
+}// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
+
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view NS_AVAILABLE_IOS(3_2){
+	
+}// called before the scroll view begins zooming its content
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
+	
+}// scale between minimum and maximum. called after any 'bounce' animations
+
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+	
+}// called when scrolling animation finished. may be called immediately if already at top
+
+
 
 
 @end

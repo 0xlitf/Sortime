@@ -20,8 +20,8 @@
 	self = [super initWithFrame:frame];
 	if (self) {
 		self.tintColor = [UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00];
+		self.barTintColor = [UIColor whiteColor];
 		
-		// 添加一个按钮到tabbar中
 		UIButton *plusBtn = [[UIButton alloc] init];
 		[plusBtn setBackgroundImage:[UIImage imageNamed:@"TabItemAddEvent"] forState:UIControlStateNormal];
 		plusBtn.size = plusBtn.currentBackgroundImage.size;
@@ -43,7 +43,7 @@
 	
 	self.plusBtn.centerX = self.width * 0.5;
 	self.plusBtn.centerY = self.height * 0.5;
-
+	
 	CGFloat tabbarButtonW = self.width / 3;
 	CGFloat tabbarButtonIndex = 0;
 	for (UIView *child in self.subviews) {

@@ -19,6 +19,8 @@
 	if (self = [super initWithFrame:frame]) {
 		[self createSubviews];
 		self.clipsToBounds = NO;
+		self.showsVerticalScrollIndicator = NO;
+		self.showsHorizontalScrollIndicator = NO;
 		self.backgroundColor = [UIColor clearColor];
 
 	}
@@ -38,15 +40,25 @@
 	}];
 	self.weatherView = weatherView;
 	
+	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+	[self addSubview:view];
+	self.tableFooterView = view;
 	
 	
 	CalendarListPageNoticeView *noticeView = [[CalendarListPageNoticeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1000)];
 	[self addSubview:noticeView];
 	self.noticeView = noticeView;
-	self.tableFooterView = noticeView;
+
 	noticeView.backgroundColor = [UIColor whiteColor];
-	
+	[noticeView mas_makeConstraints:^(MASConstraintMaker *make) {
+		make.top.equalTo(self.tableFooterView);
+		make.left.right.equalTo(self);
+		make.height.equalTo(@1000);
+		make.width.equalTo(@(kScreenWidth));
+	}];
 }
+
+
 
 
 @end

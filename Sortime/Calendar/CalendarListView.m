@@ -24,11 +24,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
 	self = [super initWithFrame:frame];
 	if (self) {
-		self.deltaDayValue = 0;
-
+		
 		[self createSubviews];
-		
-		
 	}
 	return self;
 }
@@ -39,11 +36,9 @@
 	return child;
 }
 
-
-
 - (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
 	NSUInteger index = [(CalendarListPageViewController *)viewController deltaDayValue];
-	NSLog(@"before index:%ld",index);
+	self.currentlistPageController = (CalendarListPageViewController *)viewController;
 	if (self.updateTitle) {
 		self.updateTitle(index);
 	}
@@ -52,7 +47,7 @@
 
 - (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
 	NSUInteger index = [(CalendarListPageViewController *)viewController deltaDayValue];
-	NSLog(@"after index:%ld",index);
+	self.currentlistPageController = (CalendarListPageViewController *)viewController;
 	if (self.updateTitle) {
 		self.updateTitle(index);
 	}
@@ -61,12 +56,14 @@
 
 -(void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
 	if (completed) {
-
+		
 	}
 }
 
 
 - (void)createSubviews {
+	self.deltaDayValue = 0;
+	
 	UIPageViewController *pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
 	self.pageViewController = pageViewController;
 	self.pageViewController.delegate = self;
@@ -76,23 +73,19 @@
 		make.edges.equalTo(self);
 	}];
 	
-	CalendarListPageViewController *listPageController = [[CalendarListPageViewController alloc] init];
+	CalendarListPageViewController *listPageController = [self viewControllerAtIndex:0];//[[CalendarListPageViewController alloc] init]
 	self.todaylistPageController = listPageController;
-	listPageController.deltaDayValue = 0;
-
-	[self.pageViewController setViewControllers:[NSArray arrayWithObject:listPageController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+	self.currentlistPageController = listPageController;
 	
+	[self.pageViewController setViewControllers:[NSArray arrayWithObject:listPageController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 	[self.viewController addChildViewController:self.pageViewController];
+	
+	
 	[self addSubview:self.pageViewController.view];
 	[self.pageViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.edges.equalTo(self);
 	}];
 	[self.pageViewController didMoveToParentViewController:self.viewController];
-	
-	
-	
-	
-	
 }
 
 @end

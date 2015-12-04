@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CalendarListPageView.h"
-#include "CalendarListPageViewController.h"
+#import "CalendarListPageViewController.h"
+
 @class CalendarListPageView;
 
 @interface CalendarListView : UIView<UIPageViewControllerDelegate,UIPageViewControllerDataSource>
@@ -19,7 +20,10 @@
 @property (nonatomic, assign) NSInteger deltaDayValue;
 
 @property (nonatomic, strong) CalendarListPageViewController *todaylistPageController;
+@property (nonatomic, strong) CalendarListPageViewController *currentlistPageController;
 
 @property (nonatomic, copy) void (^updateTitle)(NSInteger currentPage);
 
+
+@property (nonatomic, weak) UIPanGestureRecognizer *panGesture;
 @end

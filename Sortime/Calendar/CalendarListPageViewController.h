@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "CalendarListPageView.h"
 
+@class CalendarViewController;
 
 @interface CalendarListPageViewController : UIViewController
 @property (nonatomic, strong) CalendarListPageView *listPageView;
 @property (nonatomic, assign) NSInteger deltaDayValue;
 
 
-@property (nonatomic, copy) void (^changePageBlock)(int currentPage);
+
+
 @end

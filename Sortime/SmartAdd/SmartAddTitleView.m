@@ -34,7 +34,7 @@
 - (void)createTitleView {
 	//titleView
 	UIView *titleView = [UIView new];
-	titleView.backgroundColor = [UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00];
+	titleView.backgroundColor = kLightBlueColor;
 	[self addSubview:titleView];
 	[titleView mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.top.equalTo(@44);
@@ -151,7 +151,7 @@
 	
 	UILabel *firstLabel = [[UILabel alloc] init];
 	firstLabel.text = @"长按语音说话\n不说具体时间，即可创建待办";
-	firstLabel.textColor = [UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00];
+	firstLabel.textColor = kLightBlueColor;
 	firstLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
 	firstLabel.numberOfLines = 1;
 	firstLabel.textAlignment = NSTextAlignmentCenter;
@@ -178,7 +178,7 @@
 	
 	UIView *voiceContentView = [[UIView alloc] init];
 	[voiceInputView addSubview:voiceContentView];
-	voiceContentView.backgroundColor = [UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00];
+	voiceContentView.backgroundColor = kLightBlueColor;
 	[voiceContentView mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.top.equalTo(voiceContentView.superview).with.offset(100);
 		make.centerX.equalTo(voiceContentView.superview);
@@ -200,7 +200,7 @@
 	
 	UIView *voiceContentBackgroundView = [[UIView alloc] init];
 	[voiceInputView addSubview:voiceContentBackgroundView];
-	voiceContentBackgroundView.backgroundColor = [UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00];
+	voiceContentBackgroundView.backgroundColor = kLightBlueColor;
 	[voiceContentBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.center.equalTo(voiceContentView);
 		make.width.equalTo(@120);

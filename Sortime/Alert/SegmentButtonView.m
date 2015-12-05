@@ -52,7 +52,7 @@
 	
 	UIButton *scheduleButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[scheduleButton setTitle:@"日程安排" forState:UIControlStateNormal];
-	[scheduleButton setTitleColor:[UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00] forState:UIControlStateNormal];
+	[scheduleButton setTitleColor:kLightBlueColor forState:UIControlStateNormal];
 	[self addSubview:scheduleButton];
 	scheduleButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
 	[scheduleButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,7 +82,7 @@
 		
 		scheduleButton.selected = YES;
 		friendInviteButton.selected = NO;
-		[scheduleButton setTitleColor:[UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00] forState:UIControlStateNormal];
+		[scheduleButton setTitleColor:kLightBlueColor forState:UIControlStateNormal];
 		[friendInviteButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 		
 	} forControlEvents:UIControlEventTouchUpInside];
@@ -94,7 +94,7 @@
 		scheduleButton.selected = NO;
 		friendInviteButton.selected = YES;
 		
-		[friendInviteButton setTitleColor:[UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00] forState:UIControlStateNormal];
+		[friendInviteButton setTitleColor:kLightBlueColor forState:UIControlStateNormal];
 		[scheduleButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 		
 	} forControlEvents:UIControlEventTouchUpInside];

@@ -50,7 +50,7 @@
 	closeButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:13];
 	
 	[closeButton setTitle:@"关闭" forState:UIControlStateNormal];
-	[closeButton setTitleColor:[UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00] forState:UIControlStateNormal];
+	[closeButton setTitleColor:kLightBlueColor forState:UIControlStateNormal];
 	[closeButton bk_addEventHandler:^(id sender) {
 		[self dismissViewControllerAnimated:YES completion:^{
 			

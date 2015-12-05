@@ -12,51 +12,51 @@
 
 
 
-+ (instancetype)days:(int)days Before:(NSDate *)date {
++ (instancetype)days:(NSInteger)days Before:(NSDate *)date {
 	return nil;
 }
 
 
 
-- (int)yearValue {
+- (NSInteger)yearValue {
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setDateFormat:@"yyyy"];
-	int year = [[dateFormatter stringFromDate:self] intValue];
+	NSInteger year = [[dateFormatter stringFromDate:self] intValue];
 	return year;
 }
 
-- (int)monthValue {
+- (NSInteger)monthValue {
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setDateFormat:@"MM"];
-	int month = [[dateFormatter stringFromDate:self] intValue];
+	NSInteger month = [[dateFormatter stringFromDate:self] intValue];
 	return month;
 }
 
-- (int)dayValue {
+- (NSInteger)dayValue {
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setDateFormat:@"dd"];
-	int day = [[dateFormatter stringFromDate:self] intValue];
+	NSInteger day = [[dateFormatter stringFromDate:self] intValue];
 	return day;
 }
 
-- (int)hourValue {
+- (NSInteger)hourValue {
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setDateFormat:@"HH"];
-	int hour = [[dateFormatter stringFromDate:self] intValue];
+	NSInteger hour = [[dateFormatter stringFromDate:self] intValue];
 	return hour;
 }
 
-- (int)minuteValue {
+- (NSInteger)minuteValue {
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setDateFormat:@"mm"];
-	int minute = [[dateFormatter stringFromDate:self] intValue];
+	NSInteger minute = [[dateFormatter stringFromDate:self] intValue];
 	return minute;
 }
 
-- (int)secondValue {
+- (NSInteger)secondValue {
 	NSDateFormatter *dateFormatter = [NSDateFormatter new];
 	[dateFormatter setDateFormat:@"ss"];
-	int second = [[dateFormatter stringFromDate:self] intValue];
+	NSInteger second = [[dateFormatter stringFromDate:self] intValue];
 	return second;
 }
 

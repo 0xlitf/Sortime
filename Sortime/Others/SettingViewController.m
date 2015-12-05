@@ -41,9 +41,9 @@
 - (void)viewWillAppear:(BOOL)animated{
 	[super viewWillAppear:animated];
 	
-	[self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00]];
+	[self.navigationController.navigationBar setBackgroundColor:kLightBlueColor];
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
-	view.backgroundColor = [UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00];
+	view.backgroundColor = kLightBlueColor;
 	view.origin = CGPointMake(0, -20);
 	[self.navigationController.navigationBar addSubview:view];
 }

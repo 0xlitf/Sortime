@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	[self createSubviews];
-		self.listPageView.planTableView.delegate = self;
+	self.listPageView.planTableView.delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -90,16 +90,14 @@
 	return YES;
 }
 
-
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView;        {
-	NSLog(@"%f",self.listPageView.planTableView.contentOffset.y);
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	if (self.listPageView.planTableView.contentOffset.y < 0) {
-		float a = 1 + (self.listPageView.planTableView.contentOffset.y)/100;
-		self.listPageView.planTableView.alpha = a;
-		self.view.window.rootViewController.navigationController.navigationBar.alpha = a;
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"changeNavigationBarAlpha" object:[NSString stringWithFormat:@"%f",a]];
-
+		float alpha = 1 + (self.listPageView.planTableView.contentOffset.y)/100;
+		self.listPageView.planTableView.alpha = alpha;
+		self.listPageView.backgroundWeatherView.alpha = 1;//1- alpha;
+		self.listPageView.backgroundWeatherView.y = 100 + self.listPageView.planTableView.contentOffset.y / 2;
+		self.view.window.rootViewController.navigationController.navigationBar.alpha = alpha;
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"changeNavigationBarAlpha" object:[NSString stringWithFormat:@"%f",alpha]];
 	}
 	
 }

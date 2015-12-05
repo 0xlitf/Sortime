@@ -19,7 +19,7 @@
 {
 	self = [super initWithFrame:frame];
 	if (self) {
-		self.tintColor = [UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00];
+		self.tintColor = kLightBlueColor;
 		self.barTintColor = [UIColor whiteColor];
 		
 		UIButton *plusBtn = [[UIButton alloc] init];

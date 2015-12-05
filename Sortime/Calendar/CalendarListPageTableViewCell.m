@@ -40,7 +40,7 @@
 	self.view = view;
 	UIView *colorView = [[UIView alloc] init];
 	
-	colorView.backgroundColor = [UIColor colorWithRed:0.349 green:0.678 blue:0.922 alpha:1.00];
+	colorView.backgroundColor = kLightBlueColor;
 	[self.view addSubview:colorView];
 	[colorView mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.left.equalTo(@0);

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
+@class SmartAddTitleView;
 @interface SmartAddViewController : BaseViewController
+@property (nonatomic, strong) SmartAddTitleView *smartAddTitleView;
 
 @end

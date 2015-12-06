@@ -10,6 +10,7 @@
 #import "MainTabBarController.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Bugtags/Bugtags.h>
+#import "DataBaseManager.h"
 
 @interface AppDelegate ()
 
@@ -26,7 +27,10 @@
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 	// 允许颜色
 	[[DDTTYLogger sharedInstance] setColorsEnabled:YES];
-	
+	//初始化数据库
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[DataBaseManager syschronizeDBFile];
+ });
 	
 	self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 	MainTabBarController *mainTabBarController = [[MainTabBarController alloc] init];

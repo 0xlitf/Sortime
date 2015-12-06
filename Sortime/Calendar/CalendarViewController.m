@@ -41,8 +41,7 @@
 - (void)changeNavigationBarAlpha:(NSNotification*)notification{
 	NSString *nameStr = [notification name];
 	NSString *objectStr = [notification object];
-	NSLog(@"nameStr:%@",nameStr);
-	NSLog(@"objectStr:%@",objectStr);
+
 	
 	self.navigationController.navigationBar.alpha = [objectStr floatValue];
 }
@@ -170,6 +169,10 @@
 	
 }
 
+- (void)dealloc{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
+}
 
 
 @end

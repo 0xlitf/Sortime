@@ -8,9 +8,7 @@
 
 #import "SmartAddTitleView.h"
 @interface SmartAddTitleView ()
-@property (nonatomic, weak) UIView *titleView;
-@property (nonatomic, weak) UIView *detailView;
-@property (nonatomic, weak) UIView *voiceInputView;
+
 @end
 
 
@@ -78,18 +76,18 @@
 	}];
 	
 	
-	UITextField *titleLabel = [UITextField new];
-	titleLabel.backgroundColor = [UIColor clearColor];
-	[titleView addSubview:titleLabel];
-	titleLabel.tag = 3;
-	[titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+	UITextField *titleTextField = [UITextField new];
+	titleTextField.backgroundColor = [UIColor clearColor];
+	[titleView addSubview:titleTextField];
+	titleTextField.tag = 3;
+	[titleTextField mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.left.equalTo(titleImageView.mas_right).with.offset(5);
 		make.right.equalTo(titleView);
 		make.centerY.equalTo(titleView.mas_centerY);
 	}];
-	titleLabel.text = @"title";
-	titleLabel.clearButtonMode = UITextFieldViewModeWhileEditing;
-	
+	titleTextField.text = @"";
+	titleTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+	self.titleTextField = titleTextField;
 	
 	self.titleView = titleView;
 }
@@ -173,7 +171,7 @@
 		make.centerX.equalTo(secondLabel.superview);
 	}];
 	
-
+	
 	
 	
 	UIView *voiceContentView = [[UIView alloc] init];
@@ -217,7 +215,7 @@
 	self.voiceInputView = voiceInputView;
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 	UITextField *field = [self.titleView viewWithTag:3];
 	[field endEditing:YES];
 }

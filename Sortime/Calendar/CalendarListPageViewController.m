@@ -12,7 +12,7 @@
 #import "CalendarListView.h"
 #import "CalendarListPageNoticeView.h"
 #import "CalendarListPageView.h"
-
+#import "DataBaseManager.h"
 
 
 @interface CalendarListPageViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -56,11 +56,15 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.deltaDayValue == -1) {
-		return 0;
-	}
+	FMDatabase *db = [[DataBaseManager defaultManager] database];
+	FMResultSet *result = [db executeQueryWithFormat:@"select count(*) from addPlan where deltaDay = %ld",self.deltaDayValue];
 	
-	return 10;
+		while ([result next]) {
+			NSLog(@"%d",[result intForColumnIndex:0]);
+			return [result intForColumnIndex:0];
+		}
+		return 0;
+	
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -74,10 +78,29 @@
 	if (!cell) {
 		cell = [[CalendarListPageTableViewCell alloc] init];
 	}
+	FMDatabase *db = [[DataBaseManager defaultManager] database];
+	FMResultSet *result = [db executeQueryWithFormat:@"select * from addPlan where deltaDay = %ld",self.deltaDayValue];
 	
-	
-	
-	
+	NSLog(@"deltaDayValue:%ld",self.deltaDayValue);
+	NSMutableArray *array = [NSMutableArray array];
+	NSInteger count;
+	while ([result next]) {
+		NSString *name = [result stringForColumn:@"name"];
+		int delta = [result intForColumn:@"deltaDay"];
+		count = [result intForColumnIndex:0];
+		
+		NSDictionary *dict = @{
+							   @"name":name,
+							   @"delta":[NSNumber numberWithInt:delta]
+							   };
+
+		[array addObject:dict];
+		
+		NSLog(@"%@ %d",	name, delta);
+		NSLog(@"%d",[result intForColumnIndex:0]);
+	}
+	cell.contentLabel.text = [array[indexPath.row] objectForKey:@"name"];
+
 	return cell;
 }
 

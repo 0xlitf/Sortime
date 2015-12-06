@@ -24,14 +24,16 @@ instance_implementation(DataBaseManager, defaultManager)
 	NSFileManager * fileManager = [NSFileManager defaultManager];
 	NSString* document = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
 	NSString * dbFile = [document stringByAppendingPathComponent:DBFileName];
+	NSLog(@"%@",dbFile);
+	
+	
+	FMDatabase *db = [FMDatabase databaseWithPath:dbFile];
+	if ([db open]) {
+		NSLog(@"ok");
+	}
+	
 	if (![fileManager fileExistsAtPath:dbFile]) {
-		NSString *initDBFile = [[NSBundle mainBundle] pathForResource:@"BeastBikes" ofType:@"db"];
-		BOOL success = [fileManager copyItemAtPath:initDBFile toPath:dbFile error:nil];
-		if (!success) {
-			NSLog(@"error at copying: /n%@/n -> /n%@",initDBFile, dbFile);
-		}else{
-			NSLog(@"init database success");
-		}
+		NSLog(@"create database");
 	}else{
 		NSLog(@"database exist");
 	}

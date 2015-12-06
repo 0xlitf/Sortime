@@ -22,9 +22,14 @@
 		self.showsVerticalScrollIndicator = NO;
 		self.showsHorizontalScrollIndicator = NO;
 		self.backgroundColor = [UIColor clearColor];
-
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:@"reloadTableViewData" object:nil];
 	}
 	return self;
+}
+
+
+-(void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)createSubviews {
@@ -48,7 +53,7 @@
 	CalendarListPageNoticeView *noticeView = [[CalendarListPageNoticeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1000)];
 	[self addSubview:noticeView];
 	self.noticeView = noticeView;
-
+	
 	noticeView.backgroundColor = [UIColor whiteColor];
 	[noticeView mas_makeConstraints:^(MASConstraintMaker *make) {
 		make.top.equalTo(self.tableFooterView);

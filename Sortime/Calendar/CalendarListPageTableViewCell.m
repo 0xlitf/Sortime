@@ -102,11 +102,6 @@
 		make.centerY.equalTo(self.view.mas_centerY);
 	}];
 	self.contentLabel = contentLabel;
-	
-	
-	
-	
-	
 }
 
 - (void)awakeFromNib {

@@ -2,8 +2,8 @@
 Sortime is a demo app for hire.
 
 #####个人简介
-    iOS开发工程师 • 北京金和网络股份有限公司  
-    男  ︳   23岁  ︳本科 ︳ 3年工作经验  ︳ 北京   
+    iOS开发工程师  
+    男  ︳   23岁  ︳本科 ︳ 2.5年工作经验  ︳ 北京   
     18800050526 ︳calciferlorain@gmail.com  
    
 #####期望工作  

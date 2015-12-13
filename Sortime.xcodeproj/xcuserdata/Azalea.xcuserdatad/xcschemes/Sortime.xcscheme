@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E679D4D41C157AB500525004"
+               BuildableName = "SortimeUITests.xctest"
+               BlueprintName = "SortimeUITests"
+               ReferencedContainer = "container:Sortime.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E679D4E21C157ABF00525004"
+               BuildableName = "SortimeTests.xctest"
+               BlueprintName = "SortimeTests"
+               ReferencedContainer = "container:Sortime.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

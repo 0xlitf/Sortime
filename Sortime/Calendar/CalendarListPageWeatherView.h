@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface CalendarListPageWeatherView : UIView
-
+@property (nonatomic, strong) UIImageView *imageIcon;
+@property (nonatomic, strong) UILabel *locationLabel;
+@property (nonatomic, strong) UILabel *windLabel;
+@property (nonatomic, strong) UILabel *pMLabel;
+@property (nonatomic, strong) UILabel *dayLabel;
+@property (nonatomic, strong) UILabel *calendarLabel;
+@property (nonatomic, strong) UILabel *weatherLabel;
 @end

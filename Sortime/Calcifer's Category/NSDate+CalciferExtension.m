@@ -13,7 +13,10 @@
 
 
 + (instancetype)days:(NSInteger)days Before:(NSDate *)date {
-	return nil;
+	;
+	
+	
+	return [self dateWithTimeInterval:days*24*60*60 sinceDate:date];
 }
 
 

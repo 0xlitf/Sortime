@@ -13,6 +13,9 @@
 #import "CalendarListPageNoticeView.h"
 #import "CalendarListPageView.h"
 #import "DataBaseManager.h"
+#import "CalendarListPageWeatherModel.h"
+#import "CalendarListPageWeatherView.h"
+#import "NSDate+CalciferExtension.h"
 
 
 @interface CalendarListPageViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -25,6 +28,48 @@
 	[super viewDidLoad];
 	[self createSubviews];
 	self.listPageView.planTableView.delegate = self;
+	
+	NSDate *currentDate = [NSDate days:self.deltaDayValue Before:[NSDate date]];
+	if (self.deltaDayValue == 0) {
+		self.listPageView.planTableView.weatherView.dayLabel.text = @"今天  ";
+	}
+	else{
+		NSLog(@"%@",currentDate);
+		self.listPageView.planTableView.weatherView.dayLabel.text = [NSString stringWithFormat:@"%ld.%ld.%ld  ",currentDate.yearValue,currentDate.monthValue,currentDate.dayValue];
+		self.listPageView.planTableView.weatherView.calendarLabel.text = [NSString getChineseCalendarWithDate:currentDate];
+	}
+	
+	NSDateComponents *componets = [[NSCalendar autoupdatingCurrentCalendar] components:NSCalendarUnitWeekday fromDate:currentDate];
+	int weekday = (int)[componets weekday];//a就是星期几，1代表星期日，2代表星期一，后面依次
+	NSLog(@"weekday:%d",weekday);
+	NSString *weekdayStr;
+	switch (weekday) {
+  case 7:
+			weekdayStr = @"星期一";
+			break;
+  case 1:
+			weekdayStr = @"星期二";
+			break;
+  case 2:
+			weekdayStr = @"星期三";
+			break;
+  case 3:
+			weekdayStr = @"星期四";
+			break;
+  case 4:
+			weekdayStr = @"星期五";
+			break;
+  case 5:
+			weekdayStr = @"星期六";
+			break;
+  case 6:
+			weekdayStr = @"星期日";
+			break;
+  default:
+			break;
+	}
+	self.listPageView.planTableView.weatherView.dayLabel.text = [self.listPageView.planTableView.weatherView.dayLabel.text stringByAppendingString:weekdayStr];
+	NSLog(@"%@",self.listPageView.planTableView.weatherView.dayLabel.text);
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -37,6 +82,13 @@
 	CalendarListPageView *listPageView = [[CalendarListPageView alloc] init];
 	[self.view addSubview:listPageView];
 	
+	
+	NSString *httpUrl = @"http://apis.baidu.com/heweather/weather/free";
+	NSString *httpArg = @"city=beijing";
+	if (self.deltaDayValue == 0) {
+		[self request: httpUrl withHttpArg: httpArg];
+	}
+	
 	listPageView.planTableView.delegate = self;
 	listPageView.planTableView.dataSource = self;
 	
@@ -44,8 +96,42 @@
 		make.edges.equalTo(self.view);
 	}];
 	
-	
 	self.listPageView = listPageView;
+}
+
+
+-(void)request: (NSString*)httpUrl withHttpArg: (NSString*)HttpArg  {
+	NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, HttpArg];
+	NSURL *url = [NSURL URLWithString: urlStr];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url cachePolicy: NSURLRequestUseProtocolCachePolicy timeoutInterval: 10];
+	[request setHTTPMethod: @"GET"];
+	[request addValue: @"a3a22fe96529123f87fae1455cd51e2a" forHTTPHeaderField: @"apikey"];
+	NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+	[NSURLConnection sendAsynchronousRequest: request
+									   queue: queue
+						   completionHandler: ^(NSURLResponse *response, NSData *data, NSError *error){
+							   if (error) {
+								   NSLog(@"Httperror: %@%ld", error.localizedDescription, error.code);
+							   } else {
+								   NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
+								   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+								   //								   NSLog(@"HttpResponseCode:%ld", responseCode);
+								   //								   NSLog(@"HttpResponseBody %@",responseString);
+								   NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+								   CalendarListPageWeatherModel *model = [MTLJSONAdapter modelOfClass:[CalendarListPageWeatherModel class] fromJSONDictionary:[[dict objectForKey:@"HeWeather data service 3.0"] firstObject] error:nil];
+								   NSLog(@"%@",model);
+								   
+								   dispatch_async(dispatch_get_main_queue(), ^{
+									   
+									   NSLog(@"%@",NSCalendarIdentifierGregorian);
+									   self.listPageView.planTableView.weatherView.weatherLabel.text = model.cond_tex;
+									   self.listPageView.planTableView.weatherView.locationLabel.text = model.city;
+									   self.listPageView.planTableView.weatherView.windLabel.text = [NSString stringWithFormat:@"%@ %@",model.wind_dir,model.wind_sc];
+									   self.listPageView.planTableView.weatherView.pMLabel.text = [NSString stringWithFormat:@"PM2.5 %@",model.pm25];
+									   self.listPageView.planTableView.weatherView.imageIcon.image = [UIImage imageNamed:model.cond_tex];
+								   });
+							   }
+						   }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,18 +139,13 @@
 	// Dispose of any resources that can be recreated.
 }
 
-
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	FMDatabase *db = [[DataBaseManager defaultManager] database];
-	FMResultSet *result = [db executeQueryWithFormat:@"select count(*) from addPlan where deltaDay = %ld",self.deltaDayValue];
-	
-		while ([result next]) {
-			NSLog(@"%d",[result intForColumnIndex:0]);
-			return [result intForColumnIndex:0];
-		}
-		return 0;
-	
+	FMResultSet *rs = [db executeQueryWithFormat:@"select count(*) from addPlan where deltaDay = %ld",self.deltaDayValue];
+	while ([rs next]) {
+		return [rs intForColumnIndex:0];
+	}
+	return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -80,27 +161,20 @@
 	}
 	FMDatabase *db = [[DataBaseManager defaultManager] database];
 	FMResultSet *result = [db executeQueryWithFormat:@"select * from addPlan where deltaDay = %ld",self.deltaDayValue];
-	
-	NSLog(@"deltaDayValue:%ld",self.deltaDayValue);
 	NSMutableArray *array = [NSMutableArray array];
 	NSInteger count;
 	while ([result next]) {
 		NSString *name = [result stringForColumn:@"name"];
 		int delta = [result intForColumn:@"deltaDay"];
 		count = [result intForColumnIndex:0];
-		
 		NSDictionary *dict = @{
 							   @"name":name,
 							   @"delta":[NSNumber numberWithInt:delta]
 							   };
-
 		[array addObject:dict];
-		
-		NSLog(@"%@ %d",	name, delta);
-		NSLog(@"%d",[result intForColumnIndex:0]);
 	}
+	[db close];
 	cell.contentLabel.text = [array[indexPath.row] objectForKey:@"name"];
-
 	return cell;
 }
 
@@ -122,7 +196,6 @@
 		self.view.window.rootViewController.navigationController.navigationBar.alpha = alpha;
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"changeNavigationBarAlpha" object:[NSString stringWithFormat:@"%f",alpha]];
 	}
-	
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView NS_AVAILABLE_IOS(3_2){
@@ -132,7 +205,6 @@
 // called on start of dragging (may require some time and or distance to move)
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	
 	
 }
 // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest

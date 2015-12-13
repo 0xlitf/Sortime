@@ -7,17 +7,14 @@
 //
 
 #import "CalendarListPageWeatherView.h"
-#import "CalendarListPageWeatherModel.h"
 #import "Masonry.h"
 #import "UIView+Extension.h"
+#import "WeatherModel.h"
+
+
 @interface CalendarListPageWeatherView ()
-@property (nonatomic, strong) UIImageView *imageIcon;
-@property (nonatomic, strong) UILabel *locationLabel;
-@property (nonatomic, strong) UILabel *windLabel;
-@property (nonatomic, strong) UILabel *pMLabel;
-@property (nonatomic, strong) UILabel *dayLabel;
-@property (nonatomic, strong) UILabel *calendarLabel;
-@property (nonatomic, strong) UILabel *weatherLabel;
+
+
 
 @end
 
@@ -29,49 +26,59 @@
 - (instancetype)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
 		[self createSubviews];
+		
+		
 	}
 	return self;
 }
 
 
 - (void)createSubviews {
-	CalendarListPageWeatherModel *model = [CalendarListPageWeatherModel new];
-	self.imageIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:model.imageName]];
+
+	self.imageIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"没有数据"]];
 	
 	UIFont *font = [UIFont fontWithName:@"Helvetica Neue" size:12];
 	
 	self.imageIcon.size = self.imageIcon.image.size;
 	self.dayLabel = [[UILabel alloc] init];
-	self.dayLabel.text = model.dayLabelStr;
 	self.dayLabel.textAlignment = NSTextAlignmentLeft;
 	self.dayLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
 	self.dayLabel.textColor = [UIColor whiteColor];
 	self.calendarLabel = [[UILabel alloc] init];
-	self.calendarLabel.text = model.calendarLabelStr;
 	self.calendarLabel.textAlignment = NSTextAlignmentLeft;
 	self.calendarLabel.font = font;
 	self.calendarLabel.textColor = [UIColor whiteColor];
 	self.weatherLabel = [[UILabel alloc] init];
-	self.weatherLabel.text = model.weatherLabelStr;
 	self.weatherLabel.textAlignment = NSTextAlignmentLeft;
 	self.weatherLabel.font = font;
 	self.weatherLabel.textColor = [UIColor whiteColor];
 	self.locationLabel = [[UILabel alloc] init];
-	self.locationLabel.text = model.locationLabelStr;
 	self.locationLabel.textAlignment = NSTextAlignmentRight;
 	self.locationLabel.font = font;
 	self.locationLabel.textColor = [UIColor whiteColor];
 	self.windLabel = [[UILabel alloc] init];
-	self.windLabel.text = model.windLabelStr;
 	self.windLabel.textAlignment = NSTextAlignmentRight;
 	self.windLabel.font = font;
 	self.windLabel.textColor = [UIColor whiteColor];
 	self.pMLabel = [[UILabel alloc] init];
-	self.pMLabel.text = model.pMLabelStr;
 	self.pMLabel.textAlignment = NSTextAlignmentRight;
 	self.pMLabel.font = font;
 	self.pMLabel.textColor = [UIColor whiteColor];
+	/*
+	 @property (nonatomic, copy) NSString *cnty;//中国
+	 @property (nonatomic, copy) NSString *city;//北京
+	 @property (nonatomic, copy) NSString *wind_dir;//无持续风向
+	 @property (nonatomic, copy) NSString *wind_sc;//微风
+	 @property (nonatomic, copy) NSString *pm25;//pm2.5
+	 @property (nonatomic, copy) NSString *tmp;//温度
+	 */
 	
+	self.dayLabel.text = @"今天";
+	self.calendarLabel.text = [NSString getChineseCalendarWithDate:[NSDate date]];
+	self.weatherLabel.text = @"天气无数据";
+	self.locationLabel.text = @"位置信息";
+	self.windLabel.text = @"暂无数据";
+	self.pMLabel.text = @"PM2.5 无数据";
 	
 	[self addSubview:self.imageIcon];
 	[self addSubview:self.dayLabel];
@@ -118,6 +125,7 @@
 //
 //	return YES;
 //}
+
 
 
 

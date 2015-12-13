@@ -11,8 +11,14 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Bugtags/Bugtags.h>
 #import "DataBaseManager.h"
+#import <CoreLocation/CoreLocation.h>
+
+
 
 @interface AppDelegate ()
+
+
+
 
 @end
 
@@ -21,16 +27,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	[Bugtags startWithAppKey:@"b9092759408818279e5fc18088ae4ab4" invocationEvent:BTGInvocationEventBubble];
-	[Bugtags setInvocationEvent:BTGInvocationEventShake];
-	// 实例化 lumberjack
-	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-	// 允许颜色
-	[[DDTTYLogger sharedInstance] setColorsEnabled:YES];
-	//初始化数据库
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[DataBaseManager syschronizeDBFile];
- });
+	
+	
+	
+	
+	[self initBagtags];
 	
 	self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 	MainTabBarController *mainTabBarController = [[MainTabBarController alloc] init];
@@ -60,6 +61,19 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)initBagtags{
+	[Bugtags startWithAppKey:@"b9092759408818279e5fc18088ae4ab4" invocationEvent:BTGInvocationEventBubble];
+	[Bugtags setInvocationEvent:BTGInvocationEventShake];
+	// 实例化 lumberjack
+	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+	// 允许颜色
+	[[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+	//初始化数据库
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[DataBaseManager syschronizeDBFile];
+ });
 }
 
 @end

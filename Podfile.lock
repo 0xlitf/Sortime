@@ -71,6 +71,9 @@ PODS:
     - FMDB/common
   - GPUImage (0.1.7)
   - iCarousel (1.8.2)
+  - Mantle (2.0.6):
+    - Mantle/extobjc (= 2.0.6)
+  - Mantle/extobjc (2.0.6)
   - Masonry (0.6.3)
   - MBProgressHUD (0.9.1)
   - MJExtension (2.5.16)
@@ -94,6 +97,7 @@ DEPENDENCIES:
   - FMDB
   - GPUImage (~> 0.1.7)
   - iCarousel (~> 1.8.1)
+  - Mantle
   - Masonry (~> 0.6.2)
   - MBProgressHUD (~> 0.9.1)
   - MJExtension (~> 2.5.3)
@@ -115,6 +119,7 @@ SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
+  Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJExtension: b8c1321a77d91bcc007b94d38cbf5383c95ea30e

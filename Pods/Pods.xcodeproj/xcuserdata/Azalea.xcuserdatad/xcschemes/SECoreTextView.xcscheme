@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'DBA21266EF73AC82DCAFA360'
+               BlueprintIdentifier = '56B337E45CDE701A1E9D0941'
                BlueprintName = 'SECoreTextView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libSECoreTextView.a'>

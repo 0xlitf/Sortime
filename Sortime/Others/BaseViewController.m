@@ -33,6 +33,7 @@
 	UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 	
 	self.navigationItem.leftBarButtonItem = backBarButtonItem;
+
 }
 
 - (void)didReceiveMemoryWarning {

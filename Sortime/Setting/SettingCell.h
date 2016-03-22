@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingModel.h"
 
 @interface SettingCell : UITableViewCell
+@property (nonatomic, strong) SettingModel *item;
+
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
+
++ (instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

@@ -10,4 +10,25 @@
 
 @implementation SettingNavigationController
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+	return UIStatusBarStyleLightContent;
+}
+
+
 @end

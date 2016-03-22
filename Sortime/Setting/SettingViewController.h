@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
+#import "BaseTableViewController.h"
 
-@interface SettingViewController : BaseViewController
+@interface SettingViewController : BaseTableViewController
+
+@property (nonatomic,strong) NSMutableArray *dataList;
+
+
 
 @end
